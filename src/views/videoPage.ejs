@@ -94,24 +94,24 @@
                     <span><%= video.views %> views </span>
                     <span><%= new Intl.DateTimeFormat('en-US', { dateStyle: 'full'}).format(video.uploadDate)  %></span>
                   </div>
-                  <div class="d-flex justify-content-around align-items-center">
-                    <div class="d-flex align-items-center">
+                  <div class="d-flex justify-content-around align-items-center" style="gap:16px">
+                    <div class="d-flex align-items-center"style="gap:4px">
                       <img src="/img/video-page/video-content/Like.svg"/>
                       <span><%= video.likes%></span>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center"style="gap:4px">
                       <img src="/img/video-page/video-content/Dislike.svg"/>
                       <span><%= video.dislikes%></span>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" style="gap:4px">
                       <img src="/img/video-page/video-content/Share.svg"/>
                       <span>SHARE</span>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center"style="gap:4px">
                       <img src="/img/video-page/video-content/Save.svg"/>
                       <span>SAVE</span>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center"style="gap:4px">
                       <img src="/img/video-page/video-content/Overflow.svg"/>
                     </div>  
                   </div>
@@ -142,10 +142,28 @@
             <div class="col-md-8 offset-md-1 mt-2">
               <p class="float-left"><%=video.description %> </p>
             </div>
+            <div class="col-md-8 offset-md-1 mt-2">
+              <span style="color:#737373">SHOW MORE</span>
+            </div>
           </div>
         </div>
         <div class="col-md-3">
-          <p>Hello</p>
+          <div class="d-flex" style="gap:8px">
+            <div>
+              <img class="w-100 h-100" style="object-fit:cover" src="/img/video-page/video-list/videoImg.svg" alt="Video Image">
+            </div>
+            <div class="d-flex flex-column">
+              <span class="font-weight-bold">Nature Sounds in the Forest-HD Stereo Audio</span>
+              <div>
+                <span style="color:#737373 ;font-size:12px">ChanelName</span>
+                 <img class="mb-1" src="/img/chanel-page/header/Badge.svg"/>
+              </div>
+              <div style="color:#737373 ;font-size:12px">
+                <span>6.3 views</span>
+                <span>4 years ago</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     <script
