@@ -6,7 +6,11 @@ const VideoSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide your video name"],
   },
-  sourceUrl: {
+  assetId: {
+    type: String,
+    required: true,
+  },
+  playbackIds: {
     type: String,
     required: true,
   },

@@ -18,6 +18,8 @@ const connectMongo = new mongoDBConnect(
   process.env.DB_USER,
   process.env.DB_PASSWORD
 );
+//local(define heplper function in views)
+app.locals = require("./public/js/helper");
 
 //middleware
 app.set("view engine", "ejs");
@@ -30,7 +32,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH0_SECRECT,
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3000/",
   clientID: process.env.AUTH0_CLIENTID,
   issuerBaseURL: `https://${process.env.AUTHO_ISSUERBASE_URL}`,
 };
@@ -46,19 +48,18 @@ app.use(async (req, res, next) => {
         avatarUrl: req.oidc.user.picture,
         chanelImgUrl: req.oidc.user.picture,
       });
+      req.user = newUser;
+    } else {
+      req.user = exsistUser;
     }
   }
   next();
 });
-app.get("/", (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
-});
-
 //Router
 const viewsRouter = require("./routers/views");
 const videoApi = require("./routers/api/video.api");
-app.use("/", viewsRouter);
 app.use("/api/videos", videoApi);
+app.use("/", viewsRouter);
 //create server
 server.listen(port, () => {
   console.log("server listening on port" + port);

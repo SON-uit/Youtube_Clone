@@ -1,13 +1,168 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link rel="stylesheet" type="text/css" href="/css/chanelPage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <title>Chanel Page</title>
   </head>
   <body>
-    <h1 class="test">Hello</h1>
+    <div class="container-fluid mt-2">
+      <div class="row">
+        <div class="col-md-1 text-center">
+          <img src="/img/chanel-page/top-nav/IconMenu.png" atl="Icon Menu" />
+        </div>
+        <div class="col-md-1 text-center">
+          <img src="/img/chanel-page/top-nav/ytbLogo.png" atl="Icon Menu" />
+        </div>
+        <div class="col-md-6 offset-1">
+          <div class="d-flex w-100">
+            <input class="w-100" type="text" placeholder="Search">
+            <div class="border border-white text-center" style="width:65px; height:32px; background-color: #CCCCCC;">
+              <img class="w-50" src="/img/chanel-page/top-nav/Search.svg" alt="search Icon"/>
+            </div>
+            <div style="width: 24px; height:24px" class="ml-2">
+              <img class="w-100"src ="/img/chanel-page/top-nav/voiceIcon.png" alt="Voice Icon"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 offset-1">
+          <div class="d-flex justify-content-around align-items-center">
+            <img src="/img/chanel-page/top-nav/appIcon.png" alt="App Icon"/>
+            <img src="/img/chanel-page/top-nav/settingIcon.png" alt="Setting Icon">
+            <div style="width:32px; height:32px">
+              <img class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+            </div>
+            <% if(!user) { %> 
+              <div class="border border-primary p-1 align-items-center">
+                <img src="/img/chanel-page/top-nav/profileIcon.png" alt="Profile">
+                <span class="text text-primary">SIGN IN</span>
+              </div>
+            <% }else { %>
+              <div style="width:32px;height:32px">
+               <img class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile">
+              </div>
+            <% } %> 
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-1">
+          <div class="text-center p-1 mt-2 d-flex flex-column justify-content-center align-items-center">
+            <img class="w-25" src="/img/chanel-page/side-nav/HomeIcon.svg" alt="Home Icon">
+            <span class="font-weight-normal"> Home</span>
+          </div>
+          <div class="text-center p-1 mt-2 d-flex flex-column justify-content-center align-items-center">
+            <img class="w-25" src="/img/chanel-page/side-nav/ExploreIcon.svg" alt="Explore Icon">
+            <span class="font-weight-normal"> Explore</span>
+          </div>
+          <div class="text-center p-1 mt-2 d-flex flex-column justify-content-center align-items-center">
+            <img class="w-25" src="/img/chanel-page/side-nav/SubscriptionIcon.svg" alt="Subscription Icon">
+            <span class="font-weight-normal"> Subscription</span>
+          </div>
+          <div class="text-center p-1 mt-2 d-flex flex-column justify-content-center align-items-center">
+            <img class="w-25" src="/img/chanel-page/side-nav/LibraryIcon.svg" alt="Library Icon">
+            <span class="font-weight-normal"> Library</span>
+          </div>
+          <div class="text-center p-1 mt-2 d-flex flex-column justify-content-center align-items-center">
+            <img class="w-25" src="/img/chanel-page/side-nav/HistoryIcon.svg" alt="HistoryIcon Icon">
+            <span class="font-weight-normal"> History</span>
+          </div>
+        </div>
+        <div class="col-md-11">
+          <div class="row">
+            <div class="col-md-12">
+              <img class="w-100" src="/img/chanel-page/header/Banner.png" alt="Banner">
+            </div>
+            <div class="col-md-12 mt-3">
+              <div class="row">
+                <div class ="col-md-5 offset-1">
+                    <div class="d-flex">
+                      <img src=<%= user.avatarUrl %>  alt="avatar">
+                      <div class="d-flex  justify-content-center flex-column pl-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                          <h5 class="mr-2"><%= user.userName %> </h5>
+                          <img class="mb-1" src="/img/chanel-page/header/Badge.svg"/>
+                        </div>
+                        <span><%= user.followers.length %> subscriber</span>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 offset-3 d-flex justify-content-center align-items-center">
+                  <img src="/img/chanel-page/header/Subscribe.svg" alt="Subscribe">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 offset-1 d-flex justify-content-around mt-2 text-center">
+              <span class="active p-2" style="color:#606060">HOME</span>
+              <span class="p-2" style="color:#606060">VIDEOS</span>
+              <span class="p-2" style="color:#606060">PLAYLIST</span>
+              <span class="p-2" style="color:#606060">COMMUNITY</span>
+              <span class="p-2" style="color:#606060">CHANNELS</span>
+              <span class="p-2" style="color:#606060">ABOUT</span>
+              <img src="/img/chanel-page/top-nav/Search.svg" alt="Search Icon">
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-11 offset-1 mt-3">
+              <div class="row">
+                <div class="col-md-2 d-flex align-items-center justify-content-between">
+                  <span>Uploads</span>
+                  <img src="/img/chanel-page/playlist/Breadcum.svg" alt="Breadcum icon">
+                  <span style="color:#606060">PLAY ALL</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-11 offset-1 mt-3">
+              <div class="d-flex">
+                <% for (let video of videoOfUser) { %>
+                  <div class="d-flex flex-column" style="width:210; height:224px" >
+                    <a href="/video/<%= video.slug  %> ">
+                      <img src="/img/chanel-page/playlist/videoImg.png" alt="video img">
+                    </a>
+                    <h6><%=video.name %></h5>
+                    <div class="d-flex align-items-center">
+                      <span class="mr-2"style="color:#606060"><%= user.userName %></span>
+                      <img class="mb-1" src="/img/chanel-page/header/Badge.svg"/>
+                    </div>
+                    <div class="d-flex  align-items-center">
+                      <span class="mr-2"style="color:#606060">7k views</span>
+                      <span style="color:#606060"><%= convertTimestamp(Date.now(), new Date(video.uploadDate)) %> </span>
+                    </div>
+                    <div style="width:24px; height:16px">
+                      <img class="w-100" src="/img/chanel-page/playlist/CC.svg" alt="CC">
+                    </div>
+                  </div>
+                <% }%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
