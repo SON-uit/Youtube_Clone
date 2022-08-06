@@ -20,4 +20,5 @@ class mongoDbConnect {
     });
   }
 }
+
 module.exports = mongoDbConnect;

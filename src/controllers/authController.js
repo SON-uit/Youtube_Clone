@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const axios = require("axios");
+
 const User = require("../models/userModel");
 const catchAsync = require("../helpers/catchAsync");
 const AppError = require("../helpers/appError");
@@ -147,4 +148,5 @@ class AuthController {
     return res.redirect("/sign-in");
   });
 }
+
 module.exports = new AuthController();

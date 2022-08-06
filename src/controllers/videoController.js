@@ -107,4 +107,5 @@ class VideoController {
     });
   });
 }
+
 module.exports = new VideoController();

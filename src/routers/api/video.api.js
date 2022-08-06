@@ -17,4 +17,5 @@ router.put(
   VideoController.uploadVideo
 );
 router.delete("/:id", VideoController.deleteVideo);
+
 module.exports = router;

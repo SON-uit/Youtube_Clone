@@ -6,8 +6,9 @@ const router = express.Router();
 router.get("/sign-in", ViewController.renderSiginPage);
 router.get("/sign-up", ViewController.renderSignUpPage);
 
+router.get("/sendBird", ViewController.renderSendBirdPage);
 router.use(AuthController.checkIsAuth);
-router.get("/chanelPage", ViewController.renderChanelPage);
+router.get("/", ViewController.renderChanelPage);
 router.get("/video/:slug", ViewController.renderVideoPage);
 router.get("/manage", ViewController.renderManageVideoPage);
 router.get("/user/:id/setting", ViewController.renderUserSettingPage);

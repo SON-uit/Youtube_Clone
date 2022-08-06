@@ -11,4 +11,5 @@ router.get("/logout", authController.logout);
 
 router.put("/:id", multerUpload.single("avatarImg"), userController.updateUser);
 router.delete("/:id", userController.deleteUser);
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const Video = require("../models/videoModel");
 const User = require("../models/userModel");
 const catchAsync = require("../helpers/catchAsync");
+
 class ViewController {
   constructor() {}
   //render Video Page
@@ -54,5 +55,9 @@ class ViewController {
     const video = await Video.findOne({ _id: videoId });
     return res.render("upDateVideoPage", { video });
   });
+  //renderSendBirdPage
+  renderSendBirdPage = (req, res) => {
+    return res.render("sendBird");
+  };
 }
 module.exports = new ViewController();

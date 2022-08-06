@@ -1,13 +1,17 @@
+//external package
 const dotenv = require("dotenv");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 
+// core package
 const http = require("http");
 const path = require("path");
-const cookieParser = require("cookie-parser");
 const mongoDBConnect = require("./config/mongoConnection");
 
+//config variable environment
 dotenv.config({ path: "./.env" });
-//creat server
+
+//create server
 const app = express();
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
@@ -17,6 +21,7 @@ const connectMongo = new mongoDBConnect(
   process.env.DB_USER,
   process.env.DB_PASSWORD
 );
+
 //local(define heplper function in views)
 app.locals = require("./public/js/helper");
 

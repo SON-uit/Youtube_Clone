@@ -50,6 +50,7 @@ function uploadImage(filePath, fileName) {
       });
   });
 }
+
 module.exports = {
   uploadVideo,
   uploadImage,

@@ -1,6 +1,7 @@
 const catchAsync = require("../helpers/catchAsync");
 const User = require("../models/userModel");
 const cloudinary = require("../config/cloudinaryConnection");
+
 class UserController {
   constructor() {}
   //conver file from client to filePath and fileName
@@ -60,4 +61,5 @@ class UserController {
     });
   });
 }
+
 module.exports = new UserController();
