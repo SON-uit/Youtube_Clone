@@ -1,7 +1,11 @@
 const Mux = require("@mux/mux-node");
+const slugify = require("slugify");
+const mongoose = require("mongoose");
+
 const cloudinary = require("../config/cloudinaryConnection");
 const Video = require("../models/videoModel");
 const catchAsync = require("../helpers/catchAsync");
+
 class VideoController {
   constructor() {}
   //conver file from client to filePath and fileName
@@ -26,10 +30,21 @@ class VideoController {
     return asset;
   };
   createNewVideo = catchAsync(async (req, res) => {
-    const { name, description } = req.body;
-    if (req.file) {
-      // upload to Cloudinary
-      const convertVideo = this.convertFile(req.file);
+    const { name, description, tags, uploadBy } = req.body;
+    const files = req.files;
+    if (files) {
+      //get video and images file
+      const videoFile = files.videoFile[0];
+      const thumbnailImg = files.thumbnailImg[0];
+
+      //upload thumbnail images to Cloudinary
+      const convertImg = this.convertFile(thumbnailImg);
+      const uploadImg = await cloudinary.uploadImage(
+        convertImg.filePath,
+        convertImg.fileName
+      );
+      // upload video to Cloudinary
+      const convertVideo = this.convertFile(videoFile);
       const uploadVideo = await cloudinary.uploadVideo(
         convertVideo.filePath,
         convertVideo.fileName
@@ -41,13 +56,43 @@ class VideoController {
         name,
         assetId: asset.id,
         playbackIds: asset.playback_ids[0].id,
+        thumbnailImg: uploadImg.url,
+        tags: tags.split(","),
         description,
-        uploadBy: "62ebed0af51e205b2c998278",
+        uploadBy,
       });
       return res.send(newVideo);
     }
   });
-  uploadVideo = catchAsync(async (req, res) => {});
+  uploadVideo = catchAsync(async (req, res, next) => {
+    const { videoId } = req.params;
+    const { name, description } = req.body;
+    const uploadOptions = {
+      name: name.trim(),
+      description: description.trim(),
+      slug: slugify(name, {
+        lower: true,
+      }),
+    };
+    // upload new user avatar(if have)
+    if (req.file) {
+      const convertImg = this.convertFile(req.file);
+      const uploadImg = await cloudinary.uploadImage(
+        convertImg.filePath,
+        convertImg.fileName
+      );
+      uploadOptions.thumbnailImg = uploadImg.url;
+    }
+    const updatedVideo = await Video.findOneAndUpdate(
+      { _id: videoId },
+      { $set: uploadOptions },
+      { new: true }
+    );
+    return res.status(200).json({
+      status: "Success",
+      data: updatedVideo,
+    });
+  });
   deleteVideo = catchAsync(async (req, res) => {
     //set isActive to false
     const { id } = req.params;

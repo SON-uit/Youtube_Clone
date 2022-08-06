@@ -47,7 +47,14 @@
               </div>
             <% }else { %>
               <div style="width:32px;height:32px">
-               <img class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile">
+                <div class="dropdown">
+                  <img style="cursor:pointer" class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile"id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu" style="left:-115px">
+                    <a class="dropdown-item" href="/user/<%=user._id %>/setting">Setting</a>
+                    <a class="dropdown-item" href="/manage">Manage Video</a>
+                    <a class="dropdown-item" href="/api/users/logout">Logout</a>
+                  </div>
+                </div>
               </div>
             <% } %> 
           </div>
@@ -148,22 +155,25 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="d-flex" style="gap:8px">
-            <div>
-              <img class="w-100 h-100" style="object-fit:cover" src="/img/video-page/video-list/videoImg.svg" alt="Video Image">
+          <% for(let video of relativeVideo) { %> 
+          <div class="d-flex mb-2" style="gap:8px">
+            <div style="width:169px;height:95px">
+              <img class="w-100 h-100" style="object-fit:cover" src="<%= video.thumbnailImg  %> " alt="Video Image">
             </div>
             <div class="d-flex flex-column">
-              <span class="font-weight-bold">Nature Sounds in the Forest-HD Stereo Audio</span>
+              <span class="font-weight-bold"><%= video.name%> </span>
               <div>
-                <span style="color:#737373 ;font-size:12px">ChanelName</span>
+                <span style="color:#737373 ;font-size:12px"><%= video.uploadBy.userName %></span>
                  <img class="mb-1" src="/img/chanel-page/header/Badge.svg"/>
               </div>
-              <div style="color:#737373 ;font-size:12px">
-                <span>6.3 views</span>
-                <span>4 years ago</span>
+              <div class="d-flex align-items-center"style="color:#737373 ;font-size:12px;gap:4px">
+                <span><%=video.views%> views</span>
+                <img  src="/img/chanel-page/playlist/dot.svg" style="margin-top: 3px;">
+                <span><%= convertTimestamp(Date.now(), new Date(video.uploadDate)) %> </span>
               </div>
             </div>
           </div>
+          <% } %> 
         </div>
       </div>
     <script

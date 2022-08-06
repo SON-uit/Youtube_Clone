@@ -29,7 +29,7 @@ $("#signUpForm button[type=submit]").click(async (e) => {
       },
     });
     if (response.data.status === "Success") {
-      showAlert("success", "Login Successfully");
+      showAlert("success", "Sign Up Successfully");
       window.setTimeout(() => {
         location.assign("/chanelPage");
       }, 1000);

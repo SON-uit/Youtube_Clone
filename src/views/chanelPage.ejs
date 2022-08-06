@@ -43,7 +43,9 @@
             <img src="/img/chanel-page/top-nav/appIcon.png" alt="App Icon"/>
             <img src="/img/chanel-page/top-nav/settingIcon.png" alt="Setting Icon">
             <div style="width:32px; height:32px">
-              <img style="cursor: pointer" class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+              <a href="/createVideo/">
+                <img style="cursor: pointer" class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+              </a>
             </div>
             <% if(!user) { %> 
               <div class="border border-primary p-1 align-items-center">
@@ -56,6 +58,7 @@
                   <img style="cursor:pointer" class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile"id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu" style="left:-115px">
                     <a class="dropdown-item" href="/user/<%=user._id %>/setting">Setting</a>
+                    <a class="dropdown-item" href="/manage">Manage Video</a>
                     <a class="dropdown-item" href="/api/users/logout">Logout</a>
                   </div>
                 </div>
@@ -134,16 +137,17 @@
               <div class="d-flex" style="gap:8px">
                 <% for (let video of videoOfUser) { %>
                   <div class="d-flex flex-column" style="width:210; height:224px" >
-                    <a href="/video/<%= video.slug  %> ">
-                      <img src="/img/chanel-page/playlist/videoImg.png" alt="video img">
+                    <a  href="/video/<%= video.slug %>" style="width:210px; height:108px">
+                      <img class="w-100 h-100" src="<%= video.thumbnailImg %>" alt="video img">
                     </a>
-                    <h6><%=video.name %></h5>
+                    <h6 style="margin-top:10px" ><%=video.name %></h5>
                     <div class="d-flex align-items-center">
                       <span class="mr-2"style="color:#606060"><%= user.userName %></span>
                       <img class="mb-1" src="/img/chanel-page/header/Badge.svg"/>
                     </div>
-                    <div class="d-flex  align-items-center">
-                      <span class="mr-2"style="color:#606060">7k views</span>
+                    <div class="d-flex align-items-center"style="gap:4px">                                                                
+                      <span style="color:#606060">7k views</span>
+                      <img  src="/img/chanel-page/playlist/dot.svg" style="margin-top: 3px;">
                       <span style="color:#606060"><%= convertTimestamp(Date.now(), new Date(video.uploadDate)) %> </span>
                     </div>
                     <div style="width:24px; height:16px">

@@ -7,18 +7,27 @@ class ViewController {
   renderVideoPage = catchAsync(async (req, res) => {
     const user = req.user;
     const { slug } = req.params;
-    const video = await Video.findOne({ slug: slug });
-    return res.render("videoPage", { video, user });
+    const video = await Video.findOne({ slug: slug, isActive: true });
+    const relativeVideo = await Video.find({
+      tags: { $in: video.tags },
+      _id: { $ne: video._id },
+      isActive: true,
+    }).populate("uploadBy");
+    return res.render("videoPage", { video, user, relativeVideo });
   });
   // render chanel page
   renderChanelPage = catchAsync(async (req, res) => {
     const user = req.user;
-    const videoOfUser = await Video.find({ uploadBy: req.user._id });
+    const videoOfUser = await Video.find({
+      uploadBy: req.user._id,
+      isActive: true,
+    });
     return res.render("chanelPage", { videoOfUser, user });
   });
   // render manage video page
   renderManageVideoPage = catchAsync(async (req, res) => {
-    const videos = await Video.find();
+    const user = req.user;
+    const videos = await Video.find({ uploadBy: req.user._id, isActive: true });
     return res.render("manageVideoPage", { videos });
   });
   // render sign in page
@@ -34,5 +43,16 @@ class ViewController {
     const user = req.user;
     return res.render("settingUserPage", { user });
   };
+  // render create video page
+  renderCreateVideoPage = async (req, res) => {
+    const user = req.user;
+    return res.render("createVideoPage", { user });
+  };
+  // render upload video page
+  renderUpDateVideoPage = catchAsync(async (req, res) => {
+    const { videoId } = req.params;
+    const video = await Video.findOne({ _id: videoId });
+    return res.render("upDateVideoPage", { video });
+  });
 }
 module.exports = new ViewController();

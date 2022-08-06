@@ -25,14 +25,14 @@
     />
   </head>
   <body>
-    <main>
+    <main class="bg-dark" style="height: 100vh">
       <div class="container-fluid">
-        <h1>Manage content</h1>
+        <h1 style="color: #62ec6c">Manage content</h1>
         <div class="row">
           <div class="col-md-12">
             <div class="d-flex justify-content-between">
-              <span>Video</span>
-              <i class="fa-solid fa-filter"></i>
+              <h4 style="color: #62ec6c">Videos</h4>
+              <i style="font-size: 1.5rem" class="fa-solid fa-filter"></i>
             </div>
           </div>
         </div>
@@ -63,12 +63,15 @@
                   <td><%= video.likes %></td>
                   <td><%= video.dislikes %></td>
                   <td>
-                    <button class="btn btn-primary">Edit</button>
+                    <a href="/upDateVideo/<%= video._id  %>">
+                      <button class="btn btn-primary">Edit</button>
+                    </a>
                     <button
                       type="button"
                       class="btn btn-danger"
                       data-toggle="modal"
                       data-target="#deleteVideoModal"
+                      data-videoId="<%=video._id  %> "
                     >
                       Delete
                     </button>
@@ -137,5 +140,24 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <!--Axios-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $("#deleteVideoModal").on("show.bs.modal", async (event) => {
+        const videoId = event.relatedTarget.dataset.videoid;
+        const response = await axios({
+          method: "delete",
+          url: `/api/videos/${videoId}`,
+        });
+        if ((response.data.status = "Success")) {
+          location.assign("/manage");
+        }
+      });
+    </script>
   </body>
 </html>

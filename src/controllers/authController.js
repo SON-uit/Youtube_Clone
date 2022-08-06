@@ -99,6 +99,10 @@ class AuthController {
             message: "User not exsists",
           });
         }
+        //not exsist user
+        if (!user.isActive) {
+          return next(new AppError("User Not Active", 400));
+        }
         //send JWT Token to Client
         this.sendJWTtoken(res, user, 200);
       }
@@ -121,7 +125,7 @@ class AuthController {
         token,
         process.env.JWT_TOKEN_SECRET
       );
-      const currentUser = await User.findById(decoded.id);
+      const currentUser = await User.findOne({ _id: decoded.id });
       if (!currentUser) {
         return res.redirect("/sign-in");
       }

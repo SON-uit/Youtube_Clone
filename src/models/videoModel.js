@@ -18,6 +18,10 @@ const VideoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  thumbnailImg: {
+    type: String,
+    required: true,
+  },
   uploadBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -38,10 +42,12 @@ const VideoSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  tag: {
-    type: String,
-    required: true,
-  },
+  tags: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   views: {
     type: Number,
     default: 0,

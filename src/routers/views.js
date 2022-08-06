@@ -11,4 +11,6 @@ router.get("/chanelPage", ViewController.renderChanelPage);
 router.get("/video/:slug", ViewController.renderVideoPage);
 router.get("/manage", ViewController.renderManageVideoPage);
 router.get("/user/:id/setting", ViewController.renderUserSettingPage);
+router.get("/createVideo/", ViewController.renderCreateVideoPage);
+router.get("/upDateVideo/:videoId", ViewController.renderUpDateVideoPage);
 module.exports = router;

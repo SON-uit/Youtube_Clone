@@ -50,6 +50,10 @@ class UserController {
       { $set: { isActive: false } },
       { new: true }
     );
+    res.cookie("jwt", null, {
+      expires: new Date(Date.now() + 5 * 1000),
+      httpOnly: true,
+    });
     return res.status(200).json({
       status: "Success",
       data: changeUserStatus,

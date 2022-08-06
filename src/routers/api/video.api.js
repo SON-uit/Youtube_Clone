@@ -5,12 +5,15 @@ const router = express.Router();
 
 router.post(
   "/",
-  multerUpload.single("videoFile"),
+  multerUpload.fields([
+    { name: "videoFile", maxCount: 1 },
+    { name: "thumbnailImg", maxCount: 1 },
+  ]),
   VideoController.createNewVideo
 );
 router.put(
-  "/:id",
-  multerUpload.single("videoFile"),
+  "/:videoId",
+  multerUpload.single("thumbnailImg"),
   VideoController.uploadVideo
 );
 router.delete("/:id", VideoController.deleteVideo);
