@@ -43,7 +43,7 @@
             <img src="/img/chanel-page/top-nav/appIcon.png" alt="App Icon"/>
             <img src="/img/chanel-page/top-nav/settingIcon.png" alt="Setting Icon">
             <div style="width:32px; height:32px">
-              <img class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+              <img style="cursor: pointer" class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
             </div>
             <% if(!user) { %> 
               <div class="border border-primary p-1 align-items-center">
@@ -52,7 +52,13 @@
               </div>
             <% }else { %>
               <div style="width:32px;height:32px">
-               <img class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile">
+                <div class="dropdown">
+                  <img style="cursor:pointer" class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile"id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu" style="left:-115px">
+                    <a class="dropdown-item" href="/user/<%=user._id %>/setting">Setting</a>
+                    <a class="dropdown-item" href="/api/users/logout">Logout</a>
+                  </div>
+                </div>
               </div>
             <% } %> 
           </div>
@@ -90,7 +96,7 @@
               <div class="row">
                 <div class ="col-md-5 offset-1">
                     <div class="d-flex">
-                      <img class="rounded-circle" src=<%= user.avatarUrl %>  alt="avatar">
+                      <img class="rounded-circle" src=<%= user.avatarUrl %>  alt="avatar" style="width: 80px; height:80px">
                       <div class="d-flex  justify-content-center flex-column pl-3">
                         <div class="d-flex justify-content-center align-items-center">
                           <h5 class="mr-2"><%= user.userName %> </h5>

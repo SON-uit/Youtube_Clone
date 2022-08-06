@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/signIn_signUp.css" />
     <title>Sign Up</title>
   </head>
   <body class="bg-neutral-100">
@@ -23,7 +24,7 @@
                 <p class="text-base">No card required</p>
               </div>
             </div>
-            <form class="flex flex-col my-12">
+            <form id="signUpForm" class="flex flex-col my-12">
               <div class="grid grid-cols-2 gap-x-7">
                 <div>
                   <label
@@ -42,16 +43,16 @@
                 </div>
                 <div>
                   <label
-                    for="firstName"
+                    for="lastName"
                     class="text-black mb-1 sign-label required"
-                    >FirstName</label
+                    >LastName</label
                   >
                   <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
+                    id="lastName"
+                    name="lastName"
                     class="py-3 px-4 mb-6 w-full sign-input rounded-lg"
-                    placeholder="First Name"
+                    placeholder="Last Name"
                     required
                   />
                 </div>
@@ -61,9 +62,9 @@
                   >
                   <input
                     type="email"
+                    id="email"
                     name="email"
-                    class="email"
-                    class="py-3 px-4 mb-6 w-full sign-input rounded-lg h-12"
+                    class="py-3 px-4 mb-6 w-full sign-input rounded-lg"
                     placeholder="Email"
                     required
                   />
@@ -75,8 +76,8 @@
                   <input
                     type="password"
                     name="password"
-                    class="password"
-                    class="py-3 px-4 mb-4 w-full sign-input rounded-lg h-12"
+                    id="password"
+                    class="py-3 px-4 mb-4 w-full sign-input rounded-lg"
                     placeholder="Passsword"
                     required
                   />
@@ -131,5 +132,21 @@
         </div>
       </div>
     </main>
+    <!--Jquery-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!--Axios-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!--Custom script-->
+    <script src="/js/signUp.js"></script>
   </body>
 </html>

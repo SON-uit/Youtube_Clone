@@ -34,6 +34,14 @@ const VideoSchema = new mongoose.Schema({
       });
     },
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  tag: {
+    type: String,
+    required: true,
+  },
   views: {
     type: Number,
     default: 0,

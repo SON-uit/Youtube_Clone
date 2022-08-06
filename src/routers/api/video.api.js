@@ -8,4 +8,10 @@ router.post(
   multerUpload.single("videoFile"),
   VideoController.createNewVideo
 );
+router.put(
+  "/:id",
+  multerUpload.single("videoFile"),
+  VideoController.uploadVideo
+);
+router.delete("/:id", VideoController.deleteVideo);
 module.exports = router;
