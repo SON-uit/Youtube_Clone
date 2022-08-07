@@ -68,7 +68,9 @@
                   id="thumbnailImg"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">UpDate</button>
+              <button type="submit" class="btn btn-primary" id="uploadBtn">
+                UpLoad
+              </button>
             </form>
           </div>
         </div>
@@ -99,8 +101,15 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
+      // loading
+      const loading = () => {
+        $("#uploadBtn").text("Loading...");
+      };
+      // update request
       $("#updateVideoForm button[type=submit]").click(async (e) => {
         e.preventDefault();
+        //loading text
+        loading();
         const name = $("#name").val();
         const description = $("#description").val();
         const form = $("changeProfileForm")[0];
@@ -116,7 +125,7 @@
           headers: { "Content-Type": "multipart/form-data" },
         });
         if (response.status === 200) {
-          location.assign("/chanelPage");
+          location.assign("/");
         }
       });
     </script>

@@ -22,4 +22,5 @@ function convertTimestamp(current, previous) {
     return Math.round(elapsed / msPerYear) + " years ago";
   }
 }
+
 module.exports = { convertTimestamp };

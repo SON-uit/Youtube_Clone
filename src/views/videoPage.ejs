@@ -38,7 +38,9 @@
             <img src="/img/chanel-page/top-nav/appIcon.png" alt="App Icon"/>
             <img src="/img/chanel-page/top-nav/settingIcon.png" alt="Setting Icon">
             <div style="width:32px; height:32px">
-              <img class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+              <a href="/createVideo/">
+                <img style="cursor: pointer" class="round-circle" src="/img/chanel-page/top-nav/UploadIcon.svg" alt="Upload"/>
+              </a>
             </div>
             <% if(!user) { %> 
               <div class="border border-primary p-1 align-items-center">
@@ -50,7 +52,7 @@
                 <div class="dropdown">
                   <img style="cursor:pointer" class="w-100 rounded-circle" src="<%=user.avatarUrl %>" alt="Profile"id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu" style="left:-115px">
-                    <a class="dropdown-item" href="/user/<%=user._id %>/setting">Setting</a>
+                    <a class="dropdown-item" href="/user/<%=user._id %>/setting">Setting Profile</a>
                     <a class="dropdown-item" href="/manage">Manage Video</a>
                     <a class="dropdown-item" href="/api/users/logout">Logout</a>
                   </div>
@@ -157,8 +159,10 @@
         <div class="col-md-3">
           <% for(let video of relativeVideo) { %> 
           <div class="d-flex mb-2" style="gap:8px">
-            <div style="width:169px;height:95px">
-              <img class="w-100 h-100" style="object-fit:cover" src="<%= video.thumbnailImg  %> " alt="Video Image">
+            <div>
+              <a href="/video/<%=video.slug %>">
+                <img style="width:169px;height:95px"  style="object-fit:cover" src="<%= video.thumbnailImg  %> " alt="Video Image">
+              </a>
             </div>
             <div class="d-flex flex-column">
               <span class="font-weight-bold"><%= video.name%> </span>

@@ -29,9 +29,9 @@ $("#signUpForm button[type=submit]").click(async (e) => {
       },
     });
     if (response.data.status === "Success") {
-      showAlert("success", "Sign Up Successfully");
+      showAlert("success", "Sign Up Successfully,Check Your Mail");
       window.setTimeout(() => {
-        location.assign("/chanelPage");
+        location.assign("/sign-in");
       }, 1000);
     }
   } catch (err) {

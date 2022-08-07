@@ -71,7 +71,6 @@ class AuthController {
       );
     }
   });
-  //signIn
   signIn = catchAsync(async (req, res, next) => {
     //get data from client
     const { email, password } = req.body;
@@ -92,7 +91,21 @@ class AuthController {
         data: data,
       });
       if (response.status === 200) {
-        const user = await User.findOne({ email: email });
+        //check user verified
+        const resToAuth0 = await axios({
+          method: "GET",
+          url: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
+          headers: {
+            Authorization: `Bearer ${response.data.access_token}`,
+          },
+        });
+        if (!resToAuth0.data.email_verified) {
+          return res.status(400).json({
+            status: "Failed",
+            message: "Check Email Verify Your Account",
+          });
+        }
+        const user = await User.findOne({ email: resToAuth0.data.email });
         //check if user exists
         if (!user) {
           return res.status(404).json({
@@ -128,7 +141,9 @@ class AuthController {
       );
       const currentUser = await User.findOne({ _id: decoded.id });
       if (!currentUser) {
-        return res.redirect("/sign-in");
+        return next(
+          new AppError("Invaid Input or Password", err.response.status)
+        );
       }
       // set local variable
       res.locals.user = currentUser;

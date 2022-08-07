@@ -116,7 +116,9 @@
               >
                 Cancel
               </button>
-              <button type="button" class="btn btn-danger">Sure</button>
+              <button type="button" class="btn btn-danger" id="confirmDelete">
+                Sure
+              </button>
             </div>
           </div>
         </div>
@@ -148,8 +150,14 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
+      //set videoId to confirmDeleVideo Button
       $("#deleteVideoModal").on("show.bs.modal", async (event) => {
         const videoId = event.relatedTarget.dataset.videoid;
+        $("#confirmDelete").attr("data-videoId", videoId);
+      });
+      // request to delete video
+      $("#confirmDelete").click(async (event) => {
+        const videoId = $("#confirmDelete").attr("data-videoid");
         const response = await axios({
           method: "delete",
           url: `/api/videos/${videoId}`,

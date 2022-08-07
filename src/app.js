@@ -10,7 +10,9 @@ const mongoDBConnect = require("./config/mongoConnection");
 
 //config variable environment
 dotenv.config({ path: "./.env" });
-
+if (process.env.NODE_ENV === "production") {
+  console.log("hello");
+}
 //create server
 const app = express();
 const port = process.env.PORT || 3000;
@@ -42,6 +44,10 @@ app.use("/api/videos", videoApi);
 app.use("/api/users/", userApi);
 app.use("/", viewsRouter);
 
+// not found page(if err)
+app.get("*", (req, res) => {
+  return res.render("notFoundPage");
+});
 //Errorr Handler
 app.use((err, req, res, next) => {
   return res.status(err.statusCode).json({

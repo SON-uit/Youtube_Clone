@@ -8,13 +8,17 @@ class ViewController {
   renderVideoPage = catchAsync(async (req, res) => {
     const user = req.user;
     const { slug } = req.params;
-    const video = await Video.findOne({ slug: slug, isActive: true });
-    const relativeVideo = await Video.find({
-      tags: { $in: video.tags },
-      _id: { $ne: video._id },
-      isActive: true,
-    }).populate("uploadBy");
-    return res.render("videoPage", { video, user, relativeVideo });
+    try {
+      const video = await Video.findOne({ slug: slug, isActive: true });
+      const relativeVideo = await Video.find({
+        tags: { $in: video.tags },
+        _id: { $ne: video._id },
+        isActive: true,
+      }).populate("uploadBy");
+      return res.render("videoPage", { video, user, relativeVideo });
+    } catch (e) {
+      return res.render("notFoundPage");
+    }
   });
   // render chanel page
   renderChanelPage = catchAsync(async (req, res) => {
@@ -32,9 +36,18 @@ class ViewController {
     return res.render("manageVideoPage", { videos });
   });
   // render sign in page
-  renderSiginPage = (req, res) => {
+  renderSiginPage = catchAsync(async (req, res) => {
+    const user = req.user;
+    const query = req.query;
+    //verify
+    if (query.success) {
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { $set: { verified: true } }
+      );
+    }
     return res.render("signInPage");
-  };
+  });
   // render sign up page
   renderSignUpPage = (req, res) => {
     return res.render("signUpPage");
@@ -52,12 +65,19 @@ class ViewController {
   // render upload video page
   renderUpDateVideoPage = catchAsync(async (req, res) => {
     const { videoId } = req.params;
-    const video = await Video.findOne({ _id: videoId });
-    return res.render("upDateVideoPage", { video });
+    try {
+      const video = await Video.findOne({ _id: videoId });
+      return res.render("upDateVideoPage", { video });
+    } catch (err) {
+      return res.render("notFoundPage");
+    }
   });
   //renderSendBirdPage
   renderSendBirdPage = (req, res) => {
     return res.render("sendBird");
+  };
+  renderVerifyAccountPage = async (req, res) => {
+    return res.render("verifyAccount");
   };
 }
 module.exports = new ViewController();

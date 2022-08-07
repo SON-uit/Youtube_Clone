@@ -61,7 +61,10 @@ class VideoController {
         description,
         uploadBy,
       });
-      return res.send(newVideo);
+      return res.status(200).json({
+        status: "Success",
+        data: newVideo,
+      });
     }
   });
   uploadVideo = catchAsync(async (req, res, next) => {

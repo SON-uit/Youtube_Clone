@@ -16,6 +16,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/css/common.css" />
   </head>
   <body>
     <main>
@@ -78,7 +79,9 @@
                   id="videoFile"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button id="submitBtn" type="submit" class="btn btn-primary">
+                Submit
+              </button>
             </form>
           </div>
         </div>
@@ -109,10 +112,13 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
+      //loading
+      const loading = () => {
+        $("#submitBtn").text("Loading...");
+      };
       $("#createNewVideoForm button[type=submit]").click(async (e) => {
         e.preventDefault();
         const userId = $("#userId").val();
-        console.log(userId);
         const name = $("#name").val();
         const description = $("#description").val();
         const tags = $("#tags").val();
@@ -124,6 +130,8 @@
         formData.append("videoFile", $("#videoFile")[0].files[0]);
         formData.append("thumbnailImg", $("#thumbnailImg")[0].files[0]);
         formData.append("uploadBy", userId);
+        //loading
+        loading();
         const response = await axios({
           method: "post",
           url: `/api/videos`,
@@ -131,7 +139,7 @@
           headers: { "Content-Type": "multipart/form-data" },
         });
         if (response.status === 200) {
-          location.assign("/chanelPage");
+          location.assign("/");
         }
       });
     </script>

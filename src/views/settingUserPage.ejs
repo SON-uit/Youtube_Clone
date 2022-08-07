@@ -16,6 +16,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/css/common.css" />
   </head>
   <body>
     <div class="container fluid">
@@ -75,7 +76,9 @@
               />
             </div>
             <div class="d-flex justify-content-between">
-              <button type="submit" class="btn btn-primary">Upload</button>
+              <button type="submit" class="btn btn-primary" id="uploadBtn">
+                Upload
+              </button>
               <button
                 type="button"
                 class="btn btn-danger"
@@ -122,7 +125,9 @@
               >
                 Cancel
               </button>
-              <button type="button" class="btn btn-danger">Sure</button>
+              <button type="button" class="btn btn-danger" id="confirmDelete">
+                Sure
+              </button>
             </div>
           </div>
         </div>
@@ -153,9 +158,13 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
+      const loading = () => {
+        $("#uploadBtn").text("Loading...");
+      };
       //upload User Request
       $("#changeProfileForm button[type=submit]").click(async (e) => {
         e.preventDefault();
+        loading();
         const firstName = $("#firstName").val();
         const lastName = $("#lastName").val();
         const email = $("#email").val();
@@ -173,13 +182,17 @@
           headers: { "Content-Type": "multipart/form-data" },
         });
         if (response.status === 200) {
-          location.assign("/chanelPage");
+          location.assign("/");
         }
       });
-      //Delete User Request
+      //set userId to confirmDeleteUser Button
       $("#deleteUserModal").on("show.bs.modal", async (event) => {
         const userId = event.relatedTarget.dataset.userid;
-        console.log(userId);
+        $("#confirmDelete").attr("data-userId", userId);
+      });
+      // request to delete video
+      $("#confirmDelete").click(async (event) => {
+        const userId = $("#confirmDelete").attr("data-userid");
         const response = await axios({
           method: "delete",
           url: `/api/users/${userId}`,
