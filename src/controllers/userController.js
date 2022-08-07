@@ -13,6 +13,7 @@ class UserController {
       filePath,
     };
   };
+
   // updateUser
   updateUser = catchAsync(async (req, res, next) => {
     const { id } = req.params;
@@ -42,6 +43,7 @@ class UserController {
       data: updateUser,
     });
   });
+
   // delete user
   deleteUser = catchAsync(async (req, res) => {
     // set isActive to false

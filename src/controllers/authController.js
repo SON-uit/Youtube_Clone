@@ -15,6 +15,7 @@ class AuthController {
       });
     }
   };
+
   // response token to client
   sendJWTtoken = (res, user, statusCode) => {
     const cookieOption = {
@@ -27,6 +28,7 @@ class AuthController {
       status: "Success",
     });
   };
+
   //signUp
   signUp = catchAsync(async (req, res, next) => {
     //get data from client
@@ -71,6 +73,8 @@ class AuthController {
       );
     }
   });
+
+  //signIn
   signIn = catchAsync(async (req, res, next) => {
     //get data from client
     const { email, password } = req.body;
@@ -84,14 +88,14 @@ class AuthController {
       scope: "openid email offline_access",
     });
     try {
-      //request to auth0
+      //request to auth0 login api
       const response = await axios({
         method: "POST",
         url: `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
         data: data,
       });
       if (response.status === 200) {
-        //check user verified
+        //check user verified accountt
         const resToAuth0 = await axios({
           method: "GET",
           url: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
@@ -126,6 +130,7 @@ class AuthController {
       );
     }
   });
+
   //checkAuth
   checkIsAuth = catchAsync(async (req, res, next) => {
     //get jwt token from cookies
@@ -153,9 +158,10 @@ class AuthController {
       return res.redirect("/sign-in");
     }
   });
+
   //logout
   logout = catchAsync(async (req, res, next) => {
-    // return cookie with null value
+    // return token with null value
     res.cookie("jwt", null, {
       expires: new Date(Date.now() + 5 * 1000),
       httpOnly: true,

@@ -17,6 +17,7 @@ class VideoController {
       filePath,
     };
   };
+
   // upload video to Mux
   uploadToMux = async (videoUrl) => {
     const { Video } = new Mux(
@@ -29,6 +30,8 @@ class VideoController {
     });
     return asset;
   };
+
+  //create new video
   createNewVideo = catchAsync(async (req, res) => {
     const { name, description, tags, uploadBy } = req.body;
     const files = req.files;
@@ -67,6 +70,7 @@ class VideoController {
       });
     }
   });
+  //update  video
   uploadVideo = catchAsync(async (req, res, next) => {
     const { videoId } = req.params;
     const { name, description } = req.body;
@@ -96,6 +100,8 @@ class VideoController {
       data: updatedVideo,
     });
   });
+
+  //delete video
   deleteVideo = catchAsync(async (req, res) => {
     //set isActive to false
     const { id } = req.params;
